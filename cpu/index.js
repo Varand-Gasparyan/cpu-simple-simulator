@@ -15,7 +15,7 @@ class Cpu {
             mov: this.#mov,
             sumReg: this.#sumReg,
             sumImm: this.#sumImm,
-            cmpReg: this.#cmpReg,
+            cmp: this.#cmp,
             jump: this.#jump
         }
     }
@@ -47,18 +47,24 @@ class Cpu {
     }
 
     #mov = (dest, source) => {
+        if (!(dest in this.registers))
+            throw 'Invalid Reg Name';
         this.registers[dest] = source;
     }
 
     #sumReg = (reg1, reg2) => {
+        if (!(reg1 in this.registers) || !(reg2 in this.registers))
+            throw 'Invalid Reg Name';
         this.registers[reg1] = this.registers[reg1] + this.registers[reg2];
     }
 
     #sumImm = (reg1, val) => {
+        if (!(reg1 in this.registers))
+            throw 'Invalid Reg Name';
         this.registers[reg1] = this.registers[reg1] + val;
     }
 
-    #cmpReg = (val1, val2) => {
+    #cmp = (val1, val2) => {
         let cmpResult = null;
         if (this.registers[val1] && this.registers[val2]) {
             cmpResult = this.registers[val1] > this.registers[val2]
