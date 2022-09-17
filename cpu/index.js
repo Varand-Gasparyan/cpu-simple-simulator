@@ -47,19 +47,20 @@ class Cpu {
     }
 
     #mov = (dest, source) => {
-        if (!(dest in this.registers))
+        if (!(['eax', 'ebx', 'ecx', 'edx'].includes(dest)))
             throw 'Invalid Reg Name';
         this.registers[dest] = source;
     }
 
     #sumReg = (reg1, reg2) => {
-        if (!(reg1 in this.registers) || !(reg2 in this.registers))
+        if (!(['eax', 'ebx', 'ecx', 'edx'].includes(reg1))
+            || !(['eax', 'ebx', 'ecx', 'edx'].includes(reg2)))
             throw 'Invalid Reg Name';
         this.registers[reg1] = this.registers[reg1] + this.registers[reg2];
     }
 
     #sumImm = (reg1, val) => {
-        if (!(reg1 in this.registers))
+        if (!(['eax', 'ebx', 'ecx', 'edx'].includes(reg1)))
             throw 'Invalid Reg Name';
         this.registers[reg1] = this.registers[reg1] + val;
     }
